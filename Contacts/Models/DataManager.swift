@@ -15,8 +15,7 @@ final class DataManager {
     var contacts: [Contact] = []
     var currentContact: Contact?
     
-    init() {
-       
+    private init() {
         contacts.append(Contact(name: "Oleg", surname: "Dynnikov"))
         contacts.append(Contact(name: "Sergey", surname: "Gaponov"))
     }

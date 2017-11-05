@@ -59,8 +59,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="nameLabel" destination="hFV-xd-hPb" id="OlG-QC-T0d"/>
-                                            <outlet property="surnameLabel" destination="Sbv-sC-ZbF" id="58l-Y8-6BR"/>
+                                            <outlet property="nameLabel" destination="Sbv-sC-ZbF" id="frQ-bO-jde"/>
+                                            <outlet property="surnameLabel" destination="hFV-xd-hPb" id="oW3-Dh-1Hy"/>
                                             <segue destination="dn7-Bp-bcB" kind="show" id="cfj-zl-NHk"/>
                                         </connections>
                                     </tableViewCell>
@@ -70,7 +70,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="pyk-XC-NZu"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="7rX-4i-4DD">
+                            <searchBar contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rX-4i-4DD">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="HeV-yU-him"/>

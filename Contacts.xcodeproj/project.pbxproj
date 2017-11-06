@@ -16,7 +16,6 @@
 		49DA50B31FADD75A00D33A39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49DA50B11FADD75A00D33A39 /* Main.storyboard */; };
 		49DA50B51FADD75A00D33A39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49DA50B41FADD75A00D33A39 /* Assets.xcassets */; };
 		49DA50B81FADD75A00D33A39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49DA50B61FADD75A00D33A39 /* LaunchScreen.storyboard */; };
-		A81AE207360FAD417AAD567B /* Pods_Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB30259F7277921E51F8910 /* Pods_Contacts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		49DA50B71FADD75A00D33A39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49DA50B91FADD75A00D33A39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8305F8A4C77794324881379C /* Pods-Contacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.debug.xcconfig"; sourceTree = "<group>"; };
-		EDB30259F7277921E51F8910 /* Pods_Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A81AE207360FAD417AAD567B /* Pods_Contacts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +115,6 @@
 		51EB645D523382FB818887BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EDB30259F7277921E51F8910 /* Pods_Contacts.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -419,6 +415,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FX7KZ75KQ4;
 				INFOPLIST_FILE = Contacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sergeygaponov.Contacts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -435,6 +432,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FX7KZ75KQ4;
 				INFOPLIST_FILE = Contacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sergeygaponov.Contacts;
 				PRODUCT_NAME = "$(TARGET_NAME)";

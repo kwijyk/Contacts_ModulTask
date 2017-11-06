@@ -27,21 +27,33 @@ class ContactsListVC: UIViewController {
     
 }
 
-extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
+extension ContactsListVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return dataContacts.count
+        return 20
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        DataManager.instance.currentContact = dataContacts[indexPath.row % 2]
         
-        DataManager.instance.currentContact = dataContacts[indexPath.row]
-        
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as? ContactCell else {
-            fatalError("Do not create cell")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
         
         return cell
+    }
+    
+    // MARK: - UISearchBarDelegate
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+         searchBar.resignFirstResponder()
     }
 }

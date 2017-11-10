@@ -10,25 +10,31 @@ import UIKit
 
 class EditContactVC: UIViewController {
 
+    @IBOutlet private weak var contactImage: UIImageView!
+    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var surnameTextField: UITextField!
+    @IBOutlet private weak var phoneTextField: UITextField!
+    @IBOutlet private weak var emailTextField: UITextField!
+    
+    var contact: Contact? = DataManager.instance.currentContact
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionSave))
+        
+        nameTextField.text = contact?.name
+        surnameTextField.text = contact?.surname
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Action bar button
+    @objc func actionSave(sender: UIBarButtonItem) {
+        
+        contact?.name = nameTextField.text ?? ""
+        contact?.surname = surnameTextField.text ?? ""
+        
+        DataManager.instance.editContact(contact: contact!)
+    
     }
-    */
-
+    
 }

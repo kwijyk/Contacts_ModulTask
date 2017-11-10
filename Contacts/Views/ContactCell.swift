@@ -13,18 +13,16 @@ class ContactCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var surnameLabel: UILabel!
     
-    var dataContact: Contact? = DataManager.instance.currentContact
-    
     override func awakeFromNib() {
         super.awakeFromNib()
    
-        nameLabel.text = dataContact?.name
-        surnameLabel.text = dataContact?.surname
+        selectionStyle = .none
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-       
+    
+    func updateContacts(name: String, surname: String) {
+        
+        nameLabel.text = name
+        surnameLabel.text = surname
     }
 
 }

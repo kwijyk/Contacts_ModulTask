@@ -70,7 +70,7 @@
                                         <connections>
                                             <outlet property="nameLabel" destination="Sbv-sC-ZbF" id="frQ-bO-jde"/>
                                             <outlet property="surnameLabel" destination="hFV-xd-hPb" id="oW3-Dh-1Hy"/>
-                                            <segue destination="dn7-Bp-bcB" kind="show" id="cfj-zl-NHk"/>
+                                            <segue destination="dn7-Bp-bcB" kind="show" identifier="ShowEditContact" id="cfj-zl-NHk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -115,7 +115,7 @@
                     <navigationItem key="navigationItem" id="Nxx-By-IRj">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="IgP-gd-obw">
                             <connections>
-                                <segue destination="dn7-Bp-bcB" kind="show" id="T9Y-2q-mvv"/>
+                                <segue destination="dn7-Bp-bcB" kind="show" identifier="ShowAddContact" id="T9Y-2q-mvv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -127,15 +127,15 @@
             </objects>
             <point key="canvasLocation" x="703.20000000000005" y="30.134932533733135"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit ContactVC-->
         <scene sceneID="LzA-5I-iE9">
             <objects>
-                <viewController id="dn7-Bp-bcB" sceneMemberID="viewController">
+                <viewController id="dn7-Bp-bcB" customClass="EditContactVC" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g2T-PE-Knj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLady@2x-2890" translatesAutoresizingMaskIntoConstraints="NO" id="F7k-dd-VXM">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLady@2x-2890" translatesAutoresizingMaskIntoConstraints="NO" id="F7k-dd-VXM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iv9-tM-Uc5">
@@ -247,6 +247,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nHA-xG-a8J"/>
                     </view>
+                    <connections>
+                        <outlet property="contactImage" destination="aTy-23-Gyg" id="dAk-b3-EpV"/>
+                        <outlet property="emailTextField" destination="1mG-kP-eSB" id="TyM-mn-6GA"/>
+                        <outlet property="nameTextField" destination="YOP-bd-0Ml" id="hpt-oI-VpP"/>
+                        <outlet property="phoneTextField" destination="NyI-VD-sbf" id="gcG-5c-bbX"/>
+                        <outlet property="surnameTextField" destination="DsD-Yg-h2v" id="0ZP-et-rLt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXT-5v-IoV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -261,6 +268,13 @@
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

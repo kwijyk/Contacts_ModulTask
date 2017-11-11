@@ -12,6 +12,7 @@
 		491E5FC21FAE1EFD00AAF813 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FC11FAE1EFD00AAF813 /* ContactCell.swift */; };
 		491E5FC51FAE211F00AAF813 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FC41FAE211F00AAF813 /* Contact.swift */; };
 		491E5FC71FAE21D000AAF813 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FC61FAE21D000AAF813 /* DataManager.swift */; };
+		492E2E0C1FB5FDBE0085F398 /* EditContactDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E2E0B1FB5FDBE0085F398 /* EditContactDelegate.swift */; };
 		49DA50AE1FADD75A00D33A39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA50AD1FADD75A00D33A39 /* AppDelegate.swift */; };
 		49DA50B31FADD75A00D33A39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49DA50B11FADD75A00D33A39 /* Main.storyboard */; };
 		49DA50B51FADD75A00D33A39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49DA50B41FADD75A00D33A39 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		491E5FC11FAE1EFD00AAF813 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		491E5FC41FAE211F00AAF813 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		491E5FC61FAE21D000AAF813 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		492E2E0B1FB5FDBE0085F398 /* EditContactDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactDelegate.swift; sourceTree = "<group>"; };
 		49DA50AA1FADD75A00D33A39 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49DA50AD1FADD75A00D33A39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49DA50B21FADD75A00D33A39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		492E2E0A1FB5FD340085F398 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				492E2E0B1FB5FDBE0085F398 /* EditContactDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		49DA50A11FADD75A00D33A39 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 				491E5FC31FAE20D300AAF813 /* Models */,
 				491E5FC01FAE1ED100AAF813 /* Views */,
 				491E5FBE1FAE12A900AAF813 /* Controllers */,
+				492E2E0A1FB5FD340085F398 /* Delegates */,
 				491E5FB91FAE10A100AAF813 /* SupportFiles */,
 			);
 			path = Contacts;
@@ -273,6 +284,7 @@
 				491E5FC71FAE21D000AAF813 /* DataManager.swift in Sources */,
 				49DA50AE1FADD75A00D33A39 /* AppDelegate.swift in Sources */,
 				491E5FC51FAE211F00AAF813 /* Contact.swift in Sources */,
+				492E2E0C1FB5FDBE0085F398 /* EditContactDelegate.swift in Sources */,
 				491E5FBB1FAE119100AAF813 /* ContactsListVC.swift in Sources */,
 				491E5FBD1FAE129400AAF813 /* EditContactVC.swift in Sources */,
 			);

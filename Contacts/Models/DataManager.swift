@@ -20,15 +20,13 @@ final class DataManager {
         contacts.append(Contact(name: "Sergey", surname: "Gaponov", phone: 7701241, email: "sergey@mail.com"))
     }
     
-    func addContact(name: String, surname: String, phone: Int, email: String) {
-        contacts.append(Contact(name: name, surname: surname, phone: phone, email: email))
+    func addContact(_ contact: Contact) {
+        contacts.append(contact)
     }
     
-    func editContact(contact: Contact) {
-    
+    func editContact(_ contact: Contact) {
         for (index, item) in contacts.enumerated() where item.id == contact.id {
-                contacts.remove(at: index)
-                contacts.append(contact)
+                contacts[index] = contact
         }
     }
 }

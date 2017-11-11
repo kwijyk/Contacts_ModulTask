@@ -28,6 +28,13 @@ struct Contact {
     }
 }
 
+extension Contact {
+    
+    var fullName: String {
+        return name + " " + surname
+    }
+}
+
 extension Contact: Hashable {
     
     static func == (lhs: Contact, rhs: Contact) -> Bool {

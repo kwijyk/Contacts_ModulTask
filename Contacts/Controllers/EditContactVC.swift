@@ -26,6 +26,9 @@ class EditContactVC: UIViewController {
         
         nameTextField.text = contact?.name
         surnameTextField.text = contact?.surname
+        let intPhone = contact?.phone ?? 0
+        phoneTextField.text = String(intPhone)
+        emailTextField.text = contact?.email
     }
     
     // MARK: - Action bar button

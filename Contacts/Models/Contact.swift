@@ -31,7 +31,7 @@ struct Contact {
 extension Contact {
     
     var fullName: String {
-        return name + " " + surname
+        return surname + " " + name
     }
 }
 

@@ -29,6 +29,12 @@ final class DataManager {
         }
     }
     
+    func deleteContact(_ contact: Contact) {
+        for (index, item) in contacts.enumerated() where item.id == contact.id {
+            contacts.remove(at: index)
+        }
+    }
+    
     func generateSection(containedString serchText: String?) -> ([Character], [Character : [Contact]]) {
         
         var sectionsOfContacts: [Character : [Contact]] = [:]
@@ -36,7 +42,7 @@ final class DataManager {
         
         for objContact in contacts {
             if let optSerchText = serchText, !optSerchText.isEmpty,
-                objContact.fullName.range(of: optSerchText) == nil {
+                !objContact.fullName.localizedCaseInsensitiveContains(optSerchText) {
                 continue
             } else {
                 guard let firstLetter = objContact.fullName.first else { continue }

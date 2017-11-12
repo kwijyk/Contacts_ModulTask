@@ -77,12 +77,29 @@ extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            guard let contact = getContact(for: indexPath) else { return }
+            DataManager.instance.deleteContact(contact)
+             (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchBar.text)
+            
+            if indexPath.row == 0 {
+                let indexSet = IndexSet(integer: indexPath.section)
+                self.tableView.deleteSections(indexSet, with: .automatic)
+            } else {
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
 }
 
 extension ContactsListVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -90,8 +107,9 @@ extension ContactsListVC: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchText)
+        tableView.reloadData()
     }
 }
 
@@ -99,7 +117,6 @@ extension ContactsListVC: EditContactDelegate {
     
     func didSaveContact() {
         (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchBar.text)
-        print(contactsKeys)
         tableView.reloadData()
     }
 }

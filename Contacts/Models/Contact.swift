@@ -6,7 +6,7 @@
 //  Copyright © 2017 Sergey Gaponov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Contact {
     static var countObjects = 0
@@ -14,10 +14,11 @@ struct Contact {
     let id: Int
     var name: String
     var surname: String
-    var phone: Int
-    var email: String
+    var phone: Int?
+    var email: String?
+    var image: UIImage?
     
-    init(name: String, surname: String, phone: Int, email: String) {
+    init(name: String, surname: String, phone: Int?, email: String?, image: UIImage? = nil) {
         Contact.countObjects += 1
         id = Contact.countObjects
         
@@ -25,6 +26,7 @@ struct Contact {
         self.surname = surname
         self.phone = phone
         self.email = email
+        self.image = image
     }
 }
 

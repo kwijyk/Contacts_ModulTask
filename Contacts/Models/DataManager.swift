@@ -15,8 +15,11 @@ final class DataManager {
     private var contacts: [Contact] = []
 
     private init() {
-        contacts.append(Contact(name: "Oleg", surname: "Dynnikov", phone: 3703166, email: "oleg@mail.com"))
-        contacts.append(Contact(name: "Sergey", surname: "Gaponov", phone: 7701241, email: "sergey@mail.com"))
+        contacts.append(Contact(name: "Alexey", surname: "Skutarenko", phone: 0661234434, email: "alex@mail.com"))
+        contacts.append(Contact(name: "Sergey", surname: "Gaponov", phone: 0892342323, email: "sergey@mail.com"))
+        contacts.append(Contact(name: "Oleg", surname: "Dynnikov", phone: 2343422255, email: "oleg@mail.com"))
+        contacts.append(Contact(name: "Vladimer", surname: "Doronov", phone: 4563455656, email: "vlad@mail.com"))
+        contacts.append(Contact(name: "Lesy", surname: "Samohina", phone: 4353455656, email: "lesy@mail.com"))
     }
     
     func addContact(_ contact: Contact) {

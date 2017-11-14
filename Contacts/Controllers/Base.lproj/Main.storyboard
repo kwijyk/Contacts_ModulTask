@@ -25,15 +25,16 @@
                                 <rect key="frame" x="0.0" y="120" width="414" height="616"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-mM-DaT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-mM-DaT">
                                 <rect key="frame" x="0.0" y="120" width="414" height="616"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" rowHeight="66" id="BHu-pw-joK" customClass="ContactCell" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BHu-pw-joK" id="oPj-NR-ub5">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Srf-Ej-5AZ">
@@ -86,7 +87,7 @@
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="gjy-oF-L8T"/>
                                 </connections>
@@ -139,6 +140,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackLady@2x-2890" translatesAutoresizingMaskIntoConstraints="NO" id="F7k-dd-VXM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n75-nQ-3lF">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aUH-55-SHM">
                                 <rect key="frame" x="16" y="124" width="382" height="446"/>
                                 <subviews>
@@ -191,13 +196,16 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOP-bd-0Ml">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="YOP-bd-0Ml">
                                                         <rect key="frame" x="0.0" y="25" width="382" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="dn7-Bp-bcB" id="Ykc-R1-cxL"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -210,12 +218,15 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DsD-Yg-h2v">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="DsD-Yg-h2v">
                                                         <rect key="frame" x="0.0" y="25" width="382" height="30"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="dn7-Bp-bcB" id="A5U-vQ-dv5"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -228,12 +239,15 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyI-VD-sbf">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="NyI-VD-sbf">
                                                         <rect key="frame" x="0.0" y="25" width="382" height="30"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="dn7-Bp-bcB" id="hXD-jb-CKz"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -246,12 +260,15 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1mG-kP-eSB">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="1mG-kP-eSB">
                                                         <rect key="frame" x="0.0" y="25" width="382" height="30"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="dn7-Bp-bcB" id="KN0-P7-2JW"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -265,17 +282,23 @@
                             <constraint firstItem="aUH-55-SHM" firstAttribute="top" secondItem="nHA-xG-a8J" secondAttribute="top" constant="60" id="DUr-NT-38r"/>
                             <constraint firstItem="F7k-dd-VXM" firstAttribute="top" secondItem="g2T-PE-Knj" secondAttribute="top" id="GeY-km-Jjm"/>
                             <constraint firstItem="nHA-xG-a8J" firstAttribute="bottom" secondItem="F7k-dd-VXM" secondAttribute="bottom" id="JwH-9t-fPl"/>
+                            <constraint firstItem="nHA-xG-a8J" firstAttribute="trailing" secondItem="n75-nQ-3lF" secondAttribute="trailing" id="YEG-8X-paW"/>
                             <constraint firstItem="F7k-dd-VXM" firstAttribute="leading" secondItem="nHA-xG-a8J" secondAttribute="leading" id="ZHV-sI-izC"/>
+                            <constraint firstItem="nHA-xG-a8J" firstAttribute="bottom" secondItem="n75-nQ-3lF" secondAttribute="bottom" id="ZR7-9e-7Hh"/>
                             <constraint firstItem="F7k-dd-VXM" firstAttribute="trailing" secondItem="nHA-xG-a8J" secondAttribute="trailing" id="cxX-op-7kd"/>
+                            <constraint firstItem="n75-nQ-3lF" firstAttribute="leading" secondItem="nHA-xG-a8J" secondAttribute="leading" id="o86-gR-EZz"/>
                             <constraint firstItem="nHA-xG-a8J" firstAttribute="trailing" secondItem="aUH-55-SHM" secondAttribute="trailing" constant="16" id="s28-a4-Ruj"/>
                             <constraint firstItem="aUH-55-SHM" firstAttribute="leading" secondItem="nHA-xG-a8J" secondAttribute="leading" constant="16" id="wn1-2j-NKX"/>
+                            <constraint firstItem="n75-nQ-3lF" firstAttribute="top" secondItem="nHA-xG-a8J" secondAttribute="top" id="zSV-7J-ZJ1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nHA-xG-a8J"/>
                     </view>
                     <connections>
                         <outlet property="contactImage" destination="aTy-23-Gyg" id="dAk-b3-EpV"/>
-                        <outlet property="containerButtonImageView" destination="kHh-xY-y8m" id="aJg-fE-q34"/>
+                        <outlet property="containerButtonImageView" destination="kHh-xY-y8m" id="bp9-5C-ZbM"/>
                         <outlet property="emailTextField" destination="1mG-kP-eSB" id="TyM-mn-6GA"/>
+                        <outlet property="imageStackView" destination="xmi-76-Ab5" id="Ftx-uc-uJt"/>
+                        <outlet property="lcTopStackView" destination="DUr-NT-38r" id="fPd-L5-oPc"/>
                         <outlet property="nameTextField" destination="YOP-bd-0Ml" id="hpt-oI-VpP"/>
                         <outlet property="phoneTextField" destination="NyI-VD-sbf" id="gcG-5c-bbX"/>
                         <outlet property="surnameTextField" destination="DsD-Yg-h2v" id="0ZP-et-rLt"/>

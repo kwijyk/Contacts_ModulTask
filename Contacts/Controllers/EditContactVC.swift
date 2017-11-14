@@ -10,6 +10,8 @@ import UIKit
 
 class EditContactVC: UIViewController {
 
+    @IBOutlet private weak var lcTopStackView: NSLayoutConstraint!
+    @IBOutlet private weak var imageStackView: UIStackView!
     @IBOutlet private weak var containerButtonImageView: UIView!
     @IBOutlet private weak var contactImage: UIImageView!
     @IBOutlet private weak var nameTextField: UITextField!
@@ -17,22 +19,15 @@ class EditContactVC: UIViewController {
     @IBOutlet private weak var phoneTextField: UITextField!
     @IBOutlet private weak var emailTextField: UITextField!
     
+    var arrayTextFieldOutlets: [UITextField] = []
+    let notificationCenter = NotificationCenter.default
     weak var delegate: EditContactDelegate?
     var contact: Contact?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let center = NotificationCenter.default
-        center.addObserver(self,
-                           selector: #selector(keyboardWillShow),
-                           name: .UIKeyboardWillShow,
-                           object: nil)
-        
-        center.addObserver(self,
-                           selector: #selector(keyboardWillHide),
-                           name: .UIKeyboardWillHide,
-                           object: nil)
+    
+        arrayTextFieldOutlets = [nameTextField, surnameTextField, phoneTextField, emailTextField]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionSave))
     
@@ -49,22 +44,41 @@ class EditContactVC: UIViewController {
         let image = contact?.image ?? #imageLiteral(resourceName: "placeHolder")
         contactImage.image = image
         contactImage.layer.cornerRadius = contactImage.frame.size.width / 2
+        containerButtonImageView.layer.cornerRadius = containerButtonImageView.frame.size.width / 2
     }
     
-    // MARK: - Action bar button
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        notificationCenter.addObserver(self,
+                           selector: #selector(keyboardWillShow),
+                           name: .UIKeyboardWillShow,
+                           object: nil)
+
+        notificationCenter.addObserver(self,
+                           selector: #selector(keyboardWillHide),
+                           name: .UIKeyboardWillHide,
+                           object: nil)
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationCenter.removeObserver(self)
+    }
+    
+    // MARK: - Action barButton
     @objc private func actionSave(sender: UIBarButtonItem) {
     
-        guard let name = nameTextField.text,
-              let surname = surnameTextField.text else {
+        guard let name = nameTextField.text, name != "",
+              let surname = surnameTextField.text, surname != "" else {
                 showAlert(isSuccess: false)
                 return
         }
         
-        guard let optPhoneString = phoneTextField.text,
-              let optPhoneInt = Int(optPhoneString) else {
-                
-                showAlert(isSuccess: false)
-                return
+        var optPhoneInt: Int?
+        if let optPhoneString = phoneTextField.text {
+            optPhoneInt = Int(optPhoneString)
         }
         
         if var optContact = contact {
@@ -87,14 +101,25 @@ class EditContactVC: UIViewController {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         
+        let originalTransform = self.containerButtonImageView.transform
+        let scaledTransform = originalTransform.scaledBy(x: 0.05, y: 0.05)
+        let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0.0, y: 200.0)
+        lcTopStackView.constant = 10
+        
         UIView.animate(withDuration: 1.0) {
-            self.containerButtonImageView.isHidden = true
+            self.containerButtonImageView.transform = scaledAndTranslatedTransform
+            self.imageStackView.isHidden = true
+            self.view.layoutIfNeeded()
         }
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
+         lcTopStackView.constant = 60
         UIView.animate(withDuration: 1.0) {
-            self.containerButtonImageView.isHidden = false
+            
+            self.containerButtonImageView.transform = .identity
+            self.imageStackView.isHidden = false
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -120,9 +145,9 @@ class EditContactVC: UIViewController {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension EditContactVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: Actions
     @IBAction private func actionImagePickerButton(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -150,7 +175,6 @@ extension EditContactVC: UIImagePickerControllerDelegate, UINavigationController
         self.present(alertController, animated: true)
     }
     
-    // MARK: UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -161,5 +185,26 @@ extension EditContactVC: UIImagePickerControllerDelegate, UINavigationController
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension EditContactVC: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.setup()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        guard let indexTxtFld = arrayTextFieldOutlets.index(of: textField) else { return false }
+        
+        if arrayTextFieldOutlets[indexTxtFld] != arrayTextFieldOutlets.last {
+            arrayTextFieldOutlets[indexTxtFld + 1].becomeFirstResponder()
+        } else {
+            arrayTextFieldOutlets[indexTxtFld].resignFirstResponder()
+        }
+        return true
     }
 }

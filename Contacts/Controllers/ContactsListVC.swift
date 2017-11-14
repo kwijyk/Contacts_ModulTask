@@ -49,6 +49,7 @@ class ContactsListVC: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,8 +94,22 @@ extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        let separatorVW = UIView(frame: CGRect(x: 10, y: 0, width: tableView.frame.size.width - 20, height: 1))
+        separatorVW.backgroundColor = UIColor.lightGray
+        vw.addSubview(separatorVW)
+        let sectionName = String(contactsKeys[section]) + ":"
+        let lb = UILabel(frame: CGRect(x: 10, y: 0, width: 20, height: 30))
+        lb.textColor = UIColor.lightGray
+        lb.text = sectionName
+        vw.addSubview(lb)
+        return vw
+    }
 }
 
+// MARK: - UISearchBarDelegate
 extension ContactsListVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -107,12 +122,18 @@ extension ContactsListVC: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchText)
         tableView.reloadData()
     }
 }
 
+// MARK: - EditContactDelegate
 extension ContactsListVC: EditContactDelegate {
     
     func didSaveContact() {

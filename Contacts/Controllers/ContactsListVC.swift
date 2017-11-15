@@ -99,7 +99,9 @@ extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
         let vw = UIView()
         let separatorVW = UIView(frame: CGRect(x: 10, y: 0, width: tableView.frame.size.width - 20, height: 1))
         separatorVW.backgroundColor = UIColor.lightGray
-        vw.addSubview(separatorVW)
+        if section != 0 {
+           vw.addSubview(separatorVW)
+        }
         let sectionName = String(contactsKeys[section]) + ":"
         let lb = UILabel(frame: CGRect(x: 10, y: 0, width: 20, height: 30))
         lb.textColor = UIColor.lightGray

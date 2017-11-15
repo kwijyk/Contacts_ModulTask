@@ -34,12 +34,8 @@ class EditContactVC: UIViewController {
         nameTextField.text = contact?.name
         surnameTextField.text = contact?.surname
         
-        var stringPhone: String?
-        if let intPhone = contact?.phone {
-            stringPhone = String(intPhone)
-        }
-        phoneTextField.text = stringPhone
-        
+        setupPhoneForTextField(phoneTextField, phone: contact?.phone)
+
         emailTextField.text = contact?.email
         let image = contact?.image ?? #imageLiteral(resourceName: "placeHolder")
         contactImage.image = image
@@ -76,20 +72,15 @@ class EditContactVC: UIViewController {
                 return
         }
         
-        var optPhoneInt: Int?
-        if let optPhoneString = phoneTextField.text {
-            optPhoneInt = Int(optPhoneString)
-        }
-        
         if var optContact = contact {
             optContact.name = name
             optContact.surname = surname
             optContact.email = emailTextField.text
-            optContact.phone = optPhoneInt
+            optContact.phone = phoneFromTextField(phoneTextField)
             optContact.image = contactImage.image
             DataManager.instance.editContact(optContact)
         } else {
-            let contact = Contact(name: name, surname: surname, phone: optPhoneInt, email: emailTextField.text, image: contactImage.image)
+            let contact = Contact(name: name, surname: surname, phone: phoneFromTextField(phoneTextField), email: emailTextField.text, image: contactImage.image)
             DataManager.instance.addContact(contact)
         }
        
@@ -98,7 +89,6 @@ class EditContactVC: UIViewController {
     }
     
     // MARK: - Keyboard Notifications
-    
     @objc private func keyboardWillShow(notification: NSNotification) {
         
         let originalTransform = self.containerButtonImageView.transform
@@ -196,6 +186,25 @@ extension EditContactVC: UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        switch textField {
+        case arrayTextFieldOutlets[2]:
+            checkPhoneTextField(textField,
+                                shouldChangeCharactersIn: range,
+                                replacementString: string)
+            return false
+            
+        case arrayTextFieldOutlets[3]:
+            checkEmailTextField(textField,
+                                shouldChangeCharactersIn: range,
+                                replacementString: string)
+            return true
+        default:
+            return  true
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         guard let indexTxtFld = arrayTextFieldOutlets.index(of: textField) else { return false }
@@ -206,5 +215,105 @@ extension EditContactVC: UITextFieldDelegate {
             arrayTextFieldOutlets[indexTxtFld].resignFirstResponder()
         }
         return true
+    }
+ 
+    // MARK: - Validate methods
+    private func setupPhoneForTextField(_ textField: UITextField, phone: Int?) {
+        guard let optPhone = phone else { return }
+        let range = NSRange(location: 0, length: 0)
+        checkPhoneTextField(textField, shouldChangeCharactersIn: range, replacementString: String(optPhone))
+    }
+    
+    private func phoneFromTextField(_ textField: UITextField) -> Int? {
+        
+        let validationSet = CharacterSet.decimalDigits.inverted
+        guard let optText = textField.text else { return nil }
+        let components = optText.components(separatedBy: validationSet).joined()
+        return Int(components)
+    }
+    
+    private func checkPhoneTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) {
+        
+        let validationSet = CharacterSet.decimalDigits.inverted
+        let components = string.components(separatedBy: validationSet)
+
+        if components.count > 1 {
+            return
+        }
+
+        guard var newString = textField.text,
+              let rangeFromNSRange = Range(range, in: newString) else { return }
+        newString.replaceSubrange(rangeFromNSRange, with: string)
+
+        let validateComponents = newString.components(separatedBy: validationSet)
+        newString = validateComponents.joined()
+        
+        let localNumberMaxLength: Int = 7
+        let areaCodeMaxLength: Int = 3
+        let countryCodeMaxLength: Int = 2
+        
+        if newString.count > localNumberMaxLength + areaCodeMaxLength + countryCodeMaxLength {
+            return
+        }
+        
+        var resultString = String()
+        let localNumberLength = min(newString.count, localNumberMaxLength)
+        
+        if localNumberLength > 0 {
+            
+            let index = newString.index(newString.startIndex, offsetBy: newString.count - localNumberLength)
+            let number = String(newString[index...])
+            
+            resultString.append(number)
+            
+            if resultString.count > 3 {
+                let index = resultString.index(resultString.startIndex, offsetBy: 3)
+                resultString.insert("-", at: index)
+            }
+        }
+        
+        if newString.count > localNumberMaxLength {
+            
+            let areaCodeLenth = min(newString.count - localNumberMaxLength, areaCodeMaxLength)
+            
+            guard var area = newString.substring(start: newString.count - localNumberMaxLength - areaCodeLenth, offsetBy: areaCodeLenth) else { return }
+            area = "(\(area))"
+            resultString.insert(contentsOf: area, at: resultString.startIndex)
+        }
+        
+        if newString.count > localNumberMaxLength + areaCodeMaxLength {
+            
+            let countryCodeLength = min(newString.count - localNumberMaxLength - areaCodeMaxLength, countryCodeMaxLength)
+            
+            guard var countryCode = newString.substring(start: 0, offsetBy: countryCodeLength) else { return}
+            countryCode = "+\(countryCode)"
+            resultString.insert(contentsOf: countryCode, at: resultString.startIndex)
+        }
+        
+        textField.text = resultString
+    }
+
+    private func checkEmailTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) {
+        
+    }
+
+    private func formattedNumber(number: String) -> String {
+        let cleanPhoneNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let mask = "+XX (XXX) XXX XX-XX"
+        
+        var result = ""
+        var index = cleanPhoneNumber.startIndex
+        for ch in mask {
+            if index == cleanPhoneNumber.endIndex {
+                break
+            }
+            if ch == "X" {
+                result.append(cleanPhoneNumber[index])
+                index = cleanPhoneNumber.index(after: index)
+            } else {
+                result.append(ch)
+            }
+        }
+        return result
     }
 }

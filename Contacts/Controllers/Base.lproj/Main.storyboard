@@ -156,10 +156,6 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aTy-23-Gyg">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="120" id="ais-hi-7I8"/>
-                                                            <constraint firstAttribute="height" constant="120" id="yCK-xs-B1c"/>
-                                                        </constraints>
                                                     </imageView>
                                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLF-cR-byh">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
@@ -173,14 +169,16 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="centerY" secondItem="kHh-xY-y8m" secondAttribute="centerY" id="2wf-Ou-9N7"/>
-                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="centerX" secondItem="kHh-xY-y8m" secondAttribute="centerX" id="5X8-Nf-dcK"/>
-                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="height" secondItem="kHh-xY-y8m" secondAttribute="height" id="BTN-ti-22D"/>
-                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="centerX" secondItem="kHh-xY-y8m" secondAttribute="centerX" id="BYi-Be-oZf"/>
-                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="width" secondItem="kHh-xY-y8m" secondAttribute="width" id="GaW-HX-8ZA"/>
-                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="centerY" secondItem="kHh-xY-y8m" secondAttribute="centerY" id="JQc-Kh-Shi"/>
-                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="width" secondItem="kHh-xY-y8m" secondAttribute="width" id="PQh-rX-HpZ"/>
-                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="height" secondItem="kHh-xY-y8m" secondAttribute="height" id="cOu-UD-iXA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TLF-cR-byh" secondAttribute="bottom" id="4tw-3r-w2h"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TLF-cR-byh" secondAttribute="trailing" id="GUJ-r8-lfj"/>
+                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="top" secondItem="kHh-xY-y8m" secondAttribute="top" id="KiI-K8-GWX"/>
+                                                    <constraint firstItem="TLF-cR-byh" firstAttribute="leading" secondItem="kHh-xY-y8m" secondAttribute="leading" id="UJY-NL-dqG"/>
+                                                    <constraint firstAttribute="height" constant="120" id="XeE-80-Oec"/>
+                                                    <constraint firstAttribute="bottom" secondItem="aTy-23-Gyg" secondAttribute="bottom" id="Xkz-KQ-YL6"/>
+                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="leading" secondItem="kHh-xY-y8m" secondAttribute="leading" id="e1y-T9-ZXs"/>
+                                                    <constraint firstAttribute="width" constant="120" id="iL2-zw-W7b"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aTy-23-Gyg" secondAttribute="trailing" id="nlB-13-bYD"/>
+                                                    <constraint firstItem="aTy-23-Gyg" firstAttribute="top" secondItem="kHh-xY-y8m" secondAttribute="top" id="plB-9h-bQZ"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

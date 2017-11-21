@@ -39,25 +39,28 @@ class ContactsListVC: UIViewController {
     // MARK: - Privat methods
     private func generateSection(containedString serchText: String?) {
 
+        var tempSectionsOfContacts: [Character : [Contact]] = [:]
+       
         for objContact in DataManager.instance.contacts {
             if let optSerchText = serchText, !optSerchText.isEmpty,
                 !objContact.fullName.localizedCaseInsensitiveContains(optSerchText) {
                 continue
             } else {
                 guard let firstLetter = objContact.fullName.first else { continue }
-                var newContacts = sectionsOfContacts[firstLetter] ?? []
+                var newContacts = tempSectionsOfContacts[firstLetter] ?? []
                 newContacts.append(objContact)
-                sectionsOfContacts[firstLetter] = newContacts
+                tempSectionsOfContacts[firstLetter] = newContacts
             }
         }
 
-        for objsContacts in sectionsOfContacts {
+        for objsContacts in tempSectionsOfContacts {
             let sortContacts = objsContacts.value.sorted {$0.fullName < $1.fullName}
-            sectionsOfContacts[objsContacts.key] = sortContacts
+            tempSectionsOfContacts[objsContacts.key] = sortContacts
         }
 
-        contactsKeys = Array(sectionsOfContacts.keys)
+        contactsKeys = Array(tempSectionsOfContacts.keys)
         contactsKeys.sort()
+        sectionsOfContacts = tempSectionsOfContacts
     }
     
     private func getContact(for indexPath: IndexPath) -> Contact? {

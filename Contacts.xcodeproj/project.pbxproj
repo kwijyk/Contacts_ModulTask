@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4917B70A1FC4215800124DA1 /* Notifications+Extantion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4917B7091FC4215800124DA1 /* Notifications+Extantion.swift */; };
 		491E5FBB1FAE119100AAF813 /* ContactsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FBA1FAE119100AAF813 /* ContactsListVC.swift */; };
 		491E5FBD1FAE129400AAF813 /* EditContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FBC1FAE129400AAF813 /* EditContactVC.swift */; };
 		491E5FC21FAE1EFD00AAF813 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E5FC11FAE1EFD00AAF813 /* ContactCell.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		31149EFE12E7E9401778A95C /* Pods-Contacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.release.xcconfig"; sourceTree = "<group>"; };
+		4917B7091FC4215800124DA1 /* Notifications+Extantion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Extantion.swift"; sourceTree = "<group>"; };
 		491E5FBA1FAE119100AAF813 /* ContactsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListVC.swift; sourceTree = "<group>"; };
 		491E5FBC1FAE129400AAF813 /* EditContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactVC.swift; sourceTree = "<group>"; };
 		491E5FC11FAE1EFD00AAF813 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				497A32D11FBAECED00256CCA /* TextField+InputView.swift */,
 				497A32D31FBC318900256CCA /* String+Substring.swift */,
+				4917B7091FC4215800124DA1 /* Notifications+Extantion.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				491E5FC21FAE1EFD00AAF813 /* ContactCell.swift in Sources */,
+				4917B70A1FC4215800124DA1 /* Notifications+Extantion.swift in Sources */,
 				497A32D41FBC318900256CCA /* String+Substring.swift in Sources */,
 				491E5FC71FAE21D000AAF813 /* DataManager.swift in Sources */,
 				49DA50AE1FADD75A00D33A39 /* AppDelegate.swift in Sources */,

@@ -87,7 +87,8 @@ class EditContactVC: UIViewController {
             DataManager.instance.addContact(contact)
         }
        
-        delegate?.didSaveContact()
+//        delegate?.didSaveContact()
+        NotificationCenter.default.post(name: .contactsUpdated, object: nil)
         showAlert(isSuccess: true)
     }
     

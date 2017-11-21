@@ -20,6 +20,8 @@ class ContactsListVC: UIViewController {
         super.viewDidLoad()
         title = "Contacts"
         
+        NotificationCenter.default.addObserver(self, selector: #selector(contactsUpdate(_:)), name: .contactsUpdated, object: nil)
+        
         generateSection(containedString: searchBar.text)
     }
     
@@ -67,6 +69,12 @@ class ContactsListVC: UIViewController {
         let key = contactsKeys[indexPath.section]
         let contactForSection = sectionsOfContacts[key]
         return contactForSection?[indexPath.row]
+    }
+    
+    // MARK: - Notification methods
+    @objc func contactsUpdate(_ notification: Notification) {
+        generateSection(containedString: searchBar.text)
+        tableView.reloadData()
     }
 }
 

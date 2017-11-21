@@ -12,7 +12,7 @@ final class DataManager {
     
     static let instance = DataManager()
     
-    private var contacts: [Contact] = []
+    var contacts: [Contact] = []
 
     private init() {
         contacts.append(Contact(name: "Alexey", surname: "Skutarenko", phone: 380661234434, email: "alex@mail.com"))
@@ -28,7 +28,7 @@ final class DataManager {
     
     func editContact(_ contact: Contact) {
         for (index, item) in contacts.enumerated() where item.id == contact.id {
-                contacts[index] = contact
+            contacts[index] = contact
         }
     }
     
@@ -38,31 +38,31 @@ final class DataManager {
         }
     }
     
-    func generateSection(containedString serchText: String?) -> ([Character], [Character : [Contact]]) {
-        
-        var sectionsOfContacts: [Character : [Contact]] = [:]
-        var contactsKeys: [Character] = []
-        
-        for objContact in contacts {
-            if let optSerchText = serchText, !optSerchText.isEmpty,
-                !objContact.fullName.localizedCaseInsensitiveContains(optSerchText) {
-                continue
-            } else {
-                guard let firstLetter = objContact.fullName.first else { continue }
-                var newContacts = sectionsOfContacts[firstLetter] ?? []
-                newContacts.append(objContact)
-                sectionsOfContacts[firstLetter] = newContacts
-            }
-        }
-        
-        for objsContacts in sectionsOfContacts {
-            let sortCntacts = objsContacts.value.sorted {$0.fullName < $1.fullName}
-            sectionsOfContacts[objsContacts.key] = sortCntacts
-        }
-        
-        contactsKeys = Array(sectionsOfContacts.keys)
-        contactsKeys.sort()
-        
-        return (contactsKeys, sectionsOfContacts)
-    }
+//    func generateSection(containedString serchText: String?) -> ([Character], [Character : [Contact]]) {
+//
+//        var sectionsOfContacts: [Character : [Contact]] = [:]
+//        var contactsKeys: [Character] = []
+//
+//        for objContact in contacts {
+//            if let optSerchText = serchText, !optSerchText.isEmpty,
+//                !objContact.fullName.localizedCaseInsensitiveContains(optSerchText) {
+//                continue
+//            } else {
+//                guard let firstLetter = objContact.fullName.first else { continue }
+//                var newContacts = sectionsOfContacts[firstLetter] ?? []
+//                newContacts.append(objContact)
+//                sectionsOfContacts[firstLetter] = newContacts
+//            }
+//        }
+//
+//        for objsContacts in sectionsOfContacts {
+//            let sortCntacts = objsContacts.value.sorted {$0.fullName < $1.fullName}
+//            sectionsOfContacts[objsContacts.key] = sortCntacts
+//        }
+//
+//        contactsKeys = Array(sectionsOfContacts.keys)
+//        contactsKeys.sort()
+//
+//        return (contactsKeys, sectionsOfContacts)
+//    }
 }

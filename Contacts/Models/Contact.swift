@@ -9,7 +9,7 @@
 import UIKit
 
 struct Contact {
-    static var countObjects = 0
+    static private var countObjects = 0
     
     let id: Int
     var name: String

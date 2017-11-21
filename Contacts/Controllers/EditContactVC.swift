@@ -19,14 +19,16 @@ class EditContactVC: UIViewController {
     @IBOutlet private weak var phoneTextField: UITextField!
     @IBOutlet private weak var emailTextField: UITextField!
     
-    var arrayTextFieldOutlets: [UITextField] = []
-    let notificationCenter = NotificationCenter.default
+    private var arrayTextFieldOutlets: [UITextField] = []
+    private let notificationCenter = NotificationCenter.default
     weak var delegate: EditContactDelegate?
     var contact: Contact?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+       title = contact == nil ? "Add contact " : "Add contact"
+        
         arrayTextFieldOutlets = [nameTextField, surnameTextField, phoneTextField, emailTextField]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionSave))
@@ -39,8 +41,9 @@ class EditContactVC: UIViewController {
         emailTextField.text = contact?.email
         let image = contact?.image ?? #imageLiteral(resourceName: "placeHolder")
         contactImage.image = image
-        contactImage.layer.cornerRadius = contactImage.frame.size.width / 2
+
         containerButtonImageView.layer.cornerRadius = containerButtonImageView.frame.size.width / 2
+        containerButtonImageView.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,12 +129,12 @@ class EditContactVC: UIViewController {
         let attributeMessage = NSAttributedString(string: message, attributes: attributeString)
         
         let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { _ in
+             self.navigationController?.popViewController(animated: true)
+        }))
 
         alert.setValue(attributeMessage, forKey: "attributedMessage")
-        
         self.present(alert, animated: true, completion: nil)
-        
     }
 }
 

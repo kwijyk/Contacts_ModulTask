@@ -38,7 +38,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Srf-Ej-5AZ">
-                                                    <rect key="frame" x="15" y="0.0" width="389" height="65.666666666666671"/>
+                                                    <rect key="frame" x="25" y="0.0" width="379" height="65.666666666666671"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="l2R-Ze-DgR">
                                                             <rect key="frame" x="0.0" y="0.0" width="127" height="65.666666666666671"/>
@@ -61,7 +61,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Srf-Ej-5AZ" firstAttribute="leading" secondItem="oPj-NR-ub5" secondAttribute="leading" constant="15" id="9Q8-QT-D6P"/>
+                                                <constraint firstItem="Srf-Ej-5AZ" firstAttribute="leading" secondItem="oPj-NR-ub5" secondAttribute="leading" constant="25" id="9Q8-QT-D6P"/>
                                                 <constraint firstAttribute="trailing" secondItem="Srf-Ej-5AZ" secondAttribute="trailing" constant="10" id="FEs-Gi-PgY"/>
                                                 <constraint firstItem="Srf-Ej-5AZ" firstAttribute="top" secondItem="oPj-NR-ub5" secondAttribute="top" id="GLn-0u-369"/>
                                                 <constraint firstAttribute="bottom" secondItem="Srf-Ej-5AZ" secondAttribute="bottom" id="mcc-xm-Vwv"/>

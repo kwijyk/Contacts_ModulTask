@@ -13,38 +13,56 @@ class ContactsListVC: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
     
-    var sectionOfContacts: [Character : [Contact]] = [:]
-    var contactsKeys: [Character] = []
+    private var sectionsOfContacts: [Character : [Contact]] = [:]
+    private var contactsKeys: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Contacts"
-       
-        (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchBar.text)
+        
+        generateSection(containedString: searchBar.text)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         guard let addEditVC = segue.destination as? EditContactVC else { return }
         addEditVC.delegate = self
 
-        if segue.identifier == "ShowAddContact" {
-            addEditVC.title = "Add contact"
-        } else if segue.identifier == "ShowEditContact" {
-            addEditVC.title = "Edit contact"
+        if segue.identifier == "ShowEditContact" {
             guard let cell = sender as? UITableViewCell,
                 let indexPath = tableView.indexPath(for: cell) else { return }
             
             let contact = getContact(for: indexPath)
-            
             addEditVC.contact = contact
         }
     }
     
     // MARK: - Privat methods
+    private func generateSection(containedString serchText: String?) {
+
+        for objContact in DataManager.instance.contacts {
+            if let optSerchText = serchText, !optSerchText.isEmpty,
+                !objContact.fullName.localizedCaseInsensitiveContains(optSerchText) {
+                continue
+            } else {
+                guard let firstLetter = objContact.fullName.first else { continue }
+                var newContacts = sectionsOfContacts[firstLetter] ?? []
+                newContacts.append(objContact)
+                sectionsOfContacts[firstLetter] = newContacts
+            }
+        }
+
+        for objsContacts in sectionsOfContacts {
+            let sortContacts = objsContacts.value.sorted {$0.fullName < $1.fullName}
+            sectionsOfContacts[objsContacts.key] = sortContacts
+        }
+
+        contactsKeys = Array(sectionsOfContacts.keys)
+        contactsKeys.sort()
+    }
+    
     private func getContact(for indexPath: IndexPath) -> Contact? {
         let key = contactsKeys[indexPath.section]
-        let contactForSection = sectionOfContacts[key]
+        let contactForSection = sectionsOfContacts[key]
         return contactForSection?[indexPath.row]
     }
 }
@@ -61,7 +79,7 @@ extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let optContactsKey = contactsKeys[section], optContacts = sectionOfContacts[optContactsKey] ?? []
+        let optContactsKey = contactsKeys[section], optContacts = sectionsOfContacts[optContactsKey] ?? []
         return optContacts.count
     }
     
@@ -81,18 +99,18 @@ extension ContactsListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == .delete {
-            guard let contact = getContact(for: indexPath) else { return }
-            DataManager.instance.deleteContact(contact)
-             (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchBar.text)
-            
-            if indexPath.row == 0 {
-                let indexSet = IndexSet(integer: indexPath.section)
-                self.tableView.deleteSections(indexSet, with: .automatic)
-            } else {
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
+        guard editingStyle == .delete else { return }
+        guard let contact = getContact(for: indexPath) else { return }
+        DataManager.instance.deleteContact(contact)
+        generateSection(containedString: searchBar.text)
+        
+        if tableView.numberOfSections > contactsKeys.count {
+            let indexSet = IndexSet(integer: indexPath.section)
+            self.tableView.deleteSections(indexSet, with: .automatic)
+        } else {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -130,7 +148,7 @@ extension ContactsListVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchText)
+        generateSection(containedString: searchText)
         tableView.reloadData()
     }
 }
@@ -139,7 +157,7 @@ extension ContactsListVC: UISearchBarDelegate {
 extension ContactsListVC: EditContactDelegate {
     
     func didSaveContact() {
-        (contactsKeys, sectionOfContacts) = DataManager.instance.generateSection(containedString: searchBar.text)
+        generateSection(containedString: searchBar.text)
         tableView.reloadData()
     }
 }

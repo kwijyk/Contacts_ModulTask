@@ -137,6 +137,12 @@ class EditContactVC: UIViewController {
         alert.setValue(attributeMessage, forKey: "attributedMessage")
         self.present(alert, animated: true, completion: nil)
     }
+    
+    private func showPhotoAlertBan(with message: String) {
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -153,6 +159,8 @@ extension EditContactVC: UIImagePickerControllerDelegate, UINavigationController
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePicker.sourceType = .camera
                 self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                self.showPhotoAlertBan(with: "Camera are not available")
             }
         }
         alertController.addAction(cameraAction)

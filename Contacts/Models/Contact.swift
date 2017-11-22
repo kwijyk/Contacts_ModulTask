@@ -14,11 +14,11 @@ struct Contact {
     let id: Int
     var name: String
     var surname: String
-    var phone: Int?
+    var phone: UInt64?
     var email: String?
     var image: UIImage?
     
-    init(name: String, surname: String, phone: Int?, email: String?, image: UIImage? = nil) {
+    init(name: String, surname: String, phone: UInt64?, email: String?, image: UIImage? = nil) {
         Contact.countObjects += 1
         id = Contact.countObjects
         

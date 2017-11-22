@@ -9,7 +9,7 @@
 import UIKit
 
 class EditContactVC: UIViewController {
-
+    
     @IBOutlet private weak var lcTopStackView: NSLayoutConstraint!
     @IBOutlet private weak var imageStackView: UIStackView!
     @IBOutlet private weak var containerButtonImageView: UIView!
@@ -192,6 +192,14 @@ extension EditContactVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+//        enum TextFieldTagType: Int {
+//            case name, lastname, phone, email
+        
+//        var curretnTextField: UITextField {
+//            self.arrayTextFieldOutlets[self.rawValue]
+//        }
+//      }
+        
         switch textField {
         case arrayTextFieldOutlets[2]:
             checkPhoneTextField(textField,
@@ -203,7 +211,7 @@ extension EditContactVC: UITextFieldDelegate {
             checkEmailTextField(textField,
                                 shouldChangeCharactersIn: range,
                                 replacementString: string)
-            return true
+            return false
         default:
             return  true
         }
@@ -222,18 +230,18 @@ extension EditContactVC: UITextFieldDelegate {
     }
  
     // MARK: - Validate methods
-    private func setupPhoneForTextField(_ textField: UITextField, phone: Int?) {
+    private func setupPhoneForTextField(_ textField: UITextField, phone: UInt64?) {
         guard let optPhone = phone else { return }
         let range = NSRange(location: 0, length: 0)
         checkPhoneTextField(textField, shouldChangeCharactersIn: range, replacementString: String(optPhone))
     }
     
-    private func phoneFromTextField(_ textField: UITextField) -> Int? {
+    private func phoneFromTextField(_ textField: UITextField) -> UInt64? {
         
         let validationSet = CharacterSet.decimalDigits.inverted
         guard let optText = textField.text else { return nil }
         let components = optText.components(separatedBy: validationSet).joined()
-        return Int(components)
+        return UInt64(components)
     }
     
     private func checkPhoneTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) {
@@ -299,6 +307,29 @@ extension EditContactVC: UITextFieldDelegate {
 
     private func checkEmailTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) {
         
+//        let badSymbol = Array("^|!#$%&*()+=:;`~,/\\?%\"")
+        let validationSet = CharacterSet(charactersIn: " ^|!#$%&*()+=:;`~,/\\?%\"")
+        let components = string.components(separatedBy: validationSet)
+        
+        if components.count > 1 {
+            return
+        }
+        
+        guard let optTxt = textField.text else { return }
+        guard var newString = textField.text,
+            let rangeFromNSRange = Range(range, in: newString) else { return }
+        
+        if optTxt.isEmpty, string == "@" {
+            return
+        } else if string == "@", optTxt.contains("@") {
+            return
+        }
+        newString.replaceSubrange(rangeFromNSRange, with: string)
+        if newString.count < 56 {
+            textField.text = newString
+        } else {
+            return
+        }
     }
 
     private func formattedNumber(number: String) -> String {

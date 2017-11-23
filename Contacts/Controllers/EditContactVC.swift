@@ -35,9 +35,7 @@ class EditContactVC: UIViewController {
     
         nameTextField.text = contact?.name
         surnameTextField.text = contact?.surname
-        
         setupPhoneForTextField(phoneTextField, phone: contact?.phone)
-
         emailTextField.text = contact?.email
         let image = contact?.image ?? #imageLiteral(resourceName: "placeHolder")
         contactImage.image = image
@@ -88,33 +86,7 @@ class EditContactVC: UIViewController {
         }
        
 //        delegate?.didSaveContact()
-        NotificationCenter.default.post(name: .contactsUpdated, object: nil)
         showAlert(isSuccess: true)
-    }
-    
-    // MARK: - Keyboard Notifications
-    @objc private func keyboardWillShow(notification: NSNotification) {
-        
-        let originalTransform = self.containerButtonImageView.transform
-        let scaledTransform = originalTransform.scaledBy(x: 0.05, y: 0.05)
-        let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0.0, y: 200.0)
-        lcTopStackView.constant = 10
-        
-        UIView.animate(withDuration: 1.0) {
-            self.containerButtonImageView.transform = scaledAndTranslatedTransform
-            self.imageStackView.isHidden = true
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-         lcTopStackView.constant = 60
-        UIView.animate(withDuration: 1.0) {
-            
-            self.containerButtonImageView.transform = .identity
-            self.imageStackView.isHidden = false
-            self.view.layoutIfNeeded()
-        }
     }
     
     // MARK: - Privat methods
@@ -238,18 +210,18 @@ extension EditContactVC: UITextFieldDelegate {
     }
  
     // MARK: - Validate methods
-    private func setupPhoneForTextField(_ textField: UITextField, phone: UInt64?) {
+    private func setupPhoneForTextField(_ textField: UITextField, phone: String?) {
         guard let optPhone = phone else { return }
         let range = NSRange(location: 0, length: 0)
         checkPhoneTextField(textField, shouldChangeCharactersIn: range, replacementString: String(optPhone))
     }
-    
-    private func phoneFromTextField(_ textField: UITextField) -> UInt64? {
+
+    private func phoneFromTextField(_ textField: UITextField) -> String? {
         
         let validationSet = CharacterSet.decimalDigits.inverted
         guard let optText = textField.text else { return nil }
         let components = optText.components(separatedBy: validationSet).joined()
-        return UInt64(components)
+        return components
     }
     
     private func checkPhoneTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) {
@@ -358,5 +330,33 @@ extension EditContactVC: UITextFieldDelegate {
             }
         }
         return result
+    }
+}
+
+// MARK: - Keyboard Notifications
+extension EditContactVC {
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        
+        let originalTransform = self.containerButtonImageView.transform
+        let scaledTransform = originalTransform.scaledBy(x: 0.05, y: 0.05)
+        let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0.0, y: 200.0)
+        lcTopStackView.constant = 10
+        
+        UIView.animate(withDuration: 1.0) {
+            self.containerButtonImageView.transform = scaledAndTranslatedTransform
+            self.imageStackView.isHidden = true
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        lcTopStackView.constant = 60
+        UIView.animate(withDuration: 1.0) {
+            
+            self.containerButtonImageView.transform = .identity
+            self.imageStackView.isHidden = false
+            self.view.layoutIfNeeded()
+        }
     }
 }

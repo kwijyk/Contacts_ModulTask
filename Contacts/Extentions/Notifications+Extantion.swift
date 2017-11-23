@@ -9,6 +9,7 @@
 import Foundation
 
 extension Notification.Name {
-    
-     static let contactsUpdated = Notification.Name("contactsUpdated")
+
+    static let ContactsAdd = Notification.Name("ContactsAdd")
+    static let ContactsEdit = Notification.Name("ContactsAdd")
 }

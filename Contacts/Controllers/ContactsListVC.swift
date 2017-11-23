@@ -20,7 +20,8 @@ class ContactsListVC: UIViewController {
         super.viewDidLoad()
         title = "Contacts"
         
-        NotificationCenter.default.addObserver(self, selector: #selector(contactsUpdate(_:)), name: .contactsUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(contactsAdded), name: .ContactsAdd, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(contactsEdited), name: .ContactsEdit, object: nil)
         
         generateSection(containedString: searchBar.text)
     }
@@ -60,8 +61,7 @@ class ContactsListVC: UIViewController {
             tempSectionsOfContacts[objsContacts.key] = sortContacts
         }
 
-        contactsKeys = Array(tempSectionsOfContacts.keys)
-        contactsKeys.sort()
+        contactsKeys = Array(tempSectionsOfContacts.keys).sorted()
         sectionsOfContacts = tempSectionsOfContacts
     }
     
@@ -69,12 +69,6 @@ class ContactsListVC: UIViewController {
         let key = contactsKeys[indexPath.section]
         let contactForSection = sectionsOfContacts[key]
         return contactForSection?[indexPath.row]
-    }
-    
-    // MARK: - Notification methods
-    @objc func contactsUpdate(_ notification: Notification) {
-        generateSection(containedString: searchBar.text)
-        tableView.reloadData()
     }
 }
 
@@ -168,6 +162,20 @@ extension ContactsListVC: UISearchBarDelegate {
 extension ContactsListVC: EditContactDelegate {
     
     func didSaveContact() {
+        generateSection(containedString: searchBar.text)
+        tableView.reloadData()
+    }
+}
+
+// MARK: - Notifications
+extension ContactsListVC {
+    
+    @objc private func contactsAdded() {
+        generateSection(containedString: searchBar.text)
+        tableView.reloadData()
+    }
+    
+    @objc private func contactsEdited() {
         generateSection(containedString: searchBar.text)
         tableView.reloadData()
     }
